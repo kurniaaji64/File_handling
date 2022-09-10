@@ -73,3 +73,5 @@ app.route('/users/:id').get(User.list)
 app.route('/users').post(mAuth.cekToken,mUser.createUser,User.create)
 app.route('/users/:id').put(mAuth.cekToken,mUser.UpdateUser,User.update)
 app.route('/users/:id').delete(mAuth.cekToken,User.delete)
+
+app.route('/send_email').post(mAuth.cekToken,User.sendEmail);

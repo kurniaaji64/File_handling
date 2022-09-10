@@ -1,6 +1,7 @@
 const knex      = require(appRoot+'/config/database.js'); 
 var bcrypt = require('bcryptjs');
 const response    = require(appRoot+'/Utils/response.js'); 
+const email    = require(appRoot+'/Utils/sendEmail.js');
 let request= require('request')
 
 exports.create=async (req,res)=>{
@@ -70,7 +71,7 @@ exports.delete=async (req,res)=>{
       try {
             let user = await knex('users')
             .update({
-                  'deleted':1
+                  'deleted    ':1
 
             }).where('id',req.params.id)
 
@@ -80,3 +81,24 @@ exports.delete=async (req,res)=>{
             response.error(500,"Update New Users Failed",res) 
       }
 }
+
+exports.sendEmail= async (req,res)=>{
+      try {
+          var pram= {
+              name:req.body.name,
+              email:req.body.email,
+              username:req.body.username,
+              password: req.body.password,
+              
+          }
+          email.send(req,res,pram).then(()=>{
+             
+              return response.oke('Send Email Succes',res)
+          }).catch(()=>{
+              return response.error(500,"Send Email Failed",res);
+          })
+      } catch (error) {
+          console.log(error)
+          response.error(500,"Send Email Failed",res);
+      }
+  }
