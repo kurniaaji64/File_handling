@@ -65,7 +65,7 @@ app.route('/login').post(Auth.login)
 
 app.route('/file').get(File.listFile)
 app.route('/file/images').get(mAuth.cekToken,uploadFile.single('images'),mFile.handling,File.file)
-app.route('/file/images/:type/:name').get(File.getImages)
+app.route('/file/:type/:name').get(File.getImages)
 app.route('/file/document').get(mAuth.cekToken,File.file)
 
 app.route('/users').get(mAuth.cekToken,User.list)

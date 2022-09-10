@@ -21,8 +21,8 @@ exports.listFile=async function(req,res){
       try {
           
             let file= await knex('file_handling')
-            for (const key in file) {
-                  list[i].base_url= 
+            for (const i in file) {
+                  file[i].base_url= base_url+"/"+file[i].type+"/"+file[i].name
             }
             response.oke(file,res)
       } catch (error) {
